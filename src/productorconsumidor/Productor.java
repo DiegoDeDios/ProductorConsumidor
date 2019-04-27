@@ -34,7 +34,7 @@ public class Productor extends Thread{
             this.buffer.produce(product);
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(espera);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productor.class.getName()).log(Level.SEVERE, null, ex);
             }
