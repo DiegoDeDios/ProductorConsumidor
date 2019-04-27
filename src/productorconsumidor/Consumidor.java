@@ -17,10 +17,13 @@ public class Consumidor extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        ArrayList product;
         
         while(true) {
+            ArrayList product;
+            
             product = this.buffer.consume();
+            
+            System.out.println("Consumer consumed " + product.toString());
             
             try {
                 Thread.sleep(1000);

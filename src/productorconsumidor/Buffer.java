@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productorconsumidor;
 
 import java.util.logging.Level;
@@ -10,6 +5,7 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.LinkedList; 
 import java.util.Queue;
+
 public class Buffer {
     
     Queue<ArrayList> buffer;
@@ -41,8 +37,7 @@ public class Buffer {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer.peek();
-        this.buffer.remove();
+        product = this.buffer.remove();
         notify();
         
         return product;

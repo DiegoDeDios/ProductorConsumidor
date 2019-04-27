@@ -23,15 +23,17 @@ public class Productor extends Thread{
         
         Random r = new Random(System.currentTimeMillis());
         
-        ArrayList product = new ArrayList<>();
-        
         while(true) {
+            
+            ArrayList product = new ArrayList<>();
             
             product.add(operands.charAt(r.nextInt(4)));
             product.add(r.nextInt(10));
             product.add(r.nextInt(10));
             
             this.buffer.produce(product);
+            
+            System.out.println("Producer produced: " + product.toString());
             
             try {
                 Thread.sleep(espera);
