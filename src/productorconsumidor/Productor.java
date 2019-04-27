@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Productor extends Thread{
     
-    private long espera = 500;
+    private long espera;
     private Buffer buffer;
     
     public Productor(long espera, Buffer buffer) {
@@ -25,7 +25,7 @@ public class Productor extends Thread{
         
         ArrayList product = new ArrayList<>();
         
-        for(int i=0 ; i<15 ; i++) {
+        while(true) {
             
             product.add(operands.charAt(r.nextInt(4)));
             product.add(r.nextInt(10));
