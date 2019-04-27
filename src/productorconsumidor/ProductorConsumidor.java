@@ -10,7 +10,7 @@ public class ProductorConsumidor {
           //  new ProductorConsumidorGUI().setVisible(true);
         //});
         
-        Buffer buffer = new Buffer(100);
+        Buffer buffer = new Buffer();
         
         Productor producer = new Productor(1000, buffer);
         producer.start();
