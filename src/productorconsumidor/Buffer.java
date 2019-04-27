@@ -10,7 +10,7 @@ public class Buffer {
     
     Queue<ArrayList> buffer;
     
-    public Buffer(int bufferSize){
+    public Buffer(){
         this.buffer = new LinkedList<>();
     }
     
