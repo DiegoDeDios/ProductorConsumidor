@@ -22,13 +22,6 @@ public class Consumidor extends Thread {
         
         while(true) {
             
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Consumidor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
             ArrayList product;
             
             product = this.buffer.consume();
