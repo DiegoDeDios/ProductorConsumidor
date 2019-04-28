@@ -6,10 +6,12 @@ import java.util.logging.Logger;
 
 public class Consumidor extends Thread {
     
+    private String id;
     private long espera;
     private Buffer buffer;
     
     public Consumidor(long espera, Buffer buffer) {
+        this.id = id;
         this.espera = espera;
         this.buffer = buffer;
     }
@@ -25,8 +27,25 @@ public class Consumidor extends Thread {
             
             System.out.println("Consumer consumed " + product.toString());
             
+            switch((char)product.get(0)) {
+                case '+':
+                    //TODO Access GUI to display result
+                    break;
+                case '-':
+                    //TODO Access GUI to display result
+                    break;
+                case '*':
+                    //TODO Access GUI to display result
+                    break;
+                case '/':
+                    //TODO Access GUI to display result
+                    break;
+                default:
+                    break;
+            }
+            
             try {
-                Thread.sleep(1000);
+                Thread.sleep(espera);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidor.class.getName()).log(Level.SEVERE, null, ex);
             }

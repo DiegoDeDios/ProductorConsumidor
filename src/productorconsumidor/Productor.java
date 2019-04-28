@@ -7,10 +7,12 @@ import java.util.logging.Logger;
 
 public class Productor extends Thread{
     
+    private String id;
     private long espera;
     private Buffer buffer;
     
-    public Productor(long espera, Buffer buffer) {
+    public Productor(String id, long espera, Buffer buffer) {
+        this.id = id;
         this.espera = espera;
         this.buffer = buffer;
     }

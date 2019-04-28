@@ -6,6 +6,7 @@ public class ProductorConsumidor {
 
     public static void main(String[] args) {
         
+<<<<<<< HEAD
         //java.awt.EventQueue.invokeLater(() -> {
           //  new ProductorConsumidorGUI().setVisible(true);
         //});
@@ -17,6 +18,11 @@ public class ProductorConsumidor {
         
         Consumidor consumer = new Consumidor(1000, buffer);
         consumer.start();
+=======
+        java.awt.EventQueue.invokeLater(() -> {
+            new ProductorConsumidorGUI().setVisible(true);
+        });
+>>>>>>> 919e0926a2923af8414a6ead0c0b19f5663d9652
         
     }
     
