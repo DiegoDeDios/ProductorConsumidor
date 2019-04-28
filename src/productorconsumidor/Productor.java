@@ -11,6 +11,7 @@ public class Productor extends Thread{
     private int min, max;
     private long espera;
     private Buffer buffer;
+    public String message;
     
     public Productor(String id, long espera, Buffer buffer, String operands, int min, int max) {
         this.id = id;
@@ -19,6 +20,7 @@ public class Productor extends Thread{
         this.operands = operands;
         this.min = min;
         this.max = max;
+        this.message = "";
     }
     
     @Override
@@ -38,7 +40,8 @@ public class Productor extends Thread{
             
             this.buffer.produce(product);
             
-            System.out.println("Producer " + this.id +  " produced: " + product.toString());
+            this.message = "Producer " + this.id +  " produced: " + product.toString();
+            System.out.println(this.message);
             
             try {
                 Thread.sleep(espera);

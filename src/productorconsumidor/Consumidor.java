@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class Consumidor extends Thread {
     
     private String id;
     private long espera;
     private Buffer buffer;
+    public String message;
     
     public Consumidor(String id, long espera, Buffer buffer) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
+        this.message = "";
     }
     
     @Override
@@ -27,8 +30,8 @@ public class Consumidor extends Thread {
             product = this.buffer.consume();
             
             if(product.size() != 0) {
-                System.out.println("Consumer " + this.id +  " consumed " + product.toString());
-            
+                this.message = "Consumer " + this.id +  " consumed " + product.toString();
+                System.out.println(this.message);
                 switch((char)product.get(0)) {
                     case '+':
                         //TODO Access GUI to display result
@@ -55,4 +58,6 @@ public class Consumidor extends Thread {
             }
         }
     }
+    
+    
 }
