@@ -10,8 +10,9 @@ public class Productor extends Thread{
     private String id;
     private long espera;
     private Buffer buffer;
+    private String operands;
     
-    public Productor(String id, long espera, Buffer buffer) {
+    public Productor(String id, long espera, Buffer buffer, String operands) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
@@ -21,15 +22,13 @@ public class Productor extends Thread{
     public void run() {
         System.out.println("Running Producer...");
         
-        String operands = "+-*/";
-        
         Random r = new Random(System.currentTimeMillis());
         
         while(true) {
             
             ArrayList product = new ArrayList<>();
             
-            product.add(operands.charAt(r.nextInt(4)));
+            product.add(operands.charAt(r.nextInt(operands.length())));
             product.add(r.nextInt(10));
             product.add(r.nextInt(10));
             

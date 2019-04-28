@@ -1,5 +1,7 @@
 package productorconsumidor.GUI;
 
+import javax.swing.JOptionPane;
+
 public class ProductorConsumidorGUI extends javax.swing.JFrame {
 
     public ProductorConsumidorGUI() {
@@ -222,7 +224,47 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void beginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginButtonActionPerformed
+        int producers = Integer.parseInt(this.numProductores.getSelectedItem().toString()),
+                consumers = Integer.parseInt(this.numConsumidores.getSelectedItem().toString()),
+                buffSize = Integer.parseInt(this.bufferSize.getSelectedItem().toString()),
+                minValue = Integer.parseInt(this.prodMin.getSelectedItem().toString()),
+                maxValue = Integer.parseInt(this.prodMax.getSelectedItem().toString());
         
+        if(minValue > maxValue) {
+            JOptionPane.showMessageDialog(this, "Error. El valor mínimo no puede ser mayor que el máximo.");
+            return;
+        }
+        
+        long prodWaitTime = 0, consWaitTime = 0;
+        
+        try {
+            prodWaitTime = Long.parseLong(this.esperaProductores.getText());
+            consWaitTime = Long.parseLong(this.esperaConsumidores.getText());
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error. Por favor verifica que hayas ingresado un número.");
+            return;
+        }
+        
+        if(prodWaitTime > 10000 || consWaitTime > 10000 || prodWaitTime < 0 || consWaitTime < 0) {
+            JOptionPane.showMessageDialog(this, "Error. Por favor verifica que los tiempos de espera estén entre 0 y 10,000.");
+            return;
+        }
+        
+        String operands = "";
+        
+        if(!this.sumCheck.isSelected() && !this.subCheck.isSelected() && !this.multCheck.isSelected() && !this.divCheck.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Error. Por favor checa que al menos un operando este seleccionado.");
+            return;
+        }
+        
+        if(this.sumCheck.isSelected())
+            operands += "+";
+        if(this.subCheck.isSelected())
+            operands += "-";
+        if(this.multCheck.isSelected())
+            operands += "*";
+        if(this.divCheck.isSelected())
+            operands += "/";
     }//GEN-LAST:event_beginButtonActionPerformed
 
 
