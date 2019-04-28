@@ -2,19 +2,25 @@ package productorconsumidor.GUI;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import productorconsumidor.Buffer;
 import productorconsumidor.Consumidor;
 import productorconsumidor.Productor;
 
 public class ProductorConsumidorGUI extends javax.swing.JFrame {
     
-    ArrayList prods, conss;
+    public DefaultTableModel prodTable, consTable;
+    
+    ArrayList<Productor> prods;
+    ArrayList<Consumidor> conss;
     int buffSize;
 
     public ProductorConsumidorGUI() {
         initComponents();
         this.prods = new ArrayList<Productor>();
         this.conss = new ArrayList<Consumidor>();
+        this.prodTable = (DefaultTableModel)this.producerTable.getModel();
+        this.consTable = (DefaultTableModel)this.consumerTable.getModel();
     }
 
     @SuppressWarnings("unchecked")
@@ -52,16 +58,10 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        PQueue1 = new javax.swing.JLabel();
-        CQueue1 = new javax.swing.JLabel();
-        PQueue2 = new javax.swing.JLabel();
-        CQueue2 = new javax.swing.JLabel();
-        PQueue3 = new javax.swing.JLabel();
-        CQueue3 = new javax.swing.JLabel();
-        PQueue4 = new javax.swing.JLabel();
-        CQueue4 = new javax.swing.JLabel();
-        PQueue5 = new javax.swing.JLabel();
-        CQueue5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consumerTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        producerTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,25 +136,41 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        PQueue1.setText("jLabel15");
+        consumerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        CQueue1.setText("jLabel16");
+            },
+            new String [] {
+                "Consumer", "Product consumed", "Result"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        PQueue2.setText("jLabel17");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(consumerTable);
 
-        CQueue2.setText("jLabel18");
+        producerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        PQueue3.setText("jLabel19");
+            },
+            new String [] {
+                "Producer", "Production"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
-        CQueue3.setText("jLabel20");
-
-        PQueue4.setText("jLabel21");
-
-        CQueue4.setText("jLabel22");
-
-        PQueue5.setText("jLabel23");
-
-        CQueue5.setText("jLabel24");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(producerTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,35 +195,13 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
                         .addGap(37, 37, 37)))
                 .addGap(62, 62, 62))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel13))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(PQueue1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(PQueue3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(PQueue4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(PQueue5, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(116, 116, 116)
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jLabel14))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CQueue2)
-                            .addComponent(CQueue1)
-                            .addComponent(CQueue3)
-                            .addComponent(CQueue4)
-                            .addComponent(CQueue5))))
-                .addGap(120, 120, 120))
+                .addGap(97, 97, 97)
+                .addComponent(jLabel14)
+                .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -252,10 +246,18 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
                                 .addComponent(bufferSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                            .addComponent(jSeparator1))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(25, 25, 25))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(27, 27, 27)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(403, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,40 +303,43 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue1)
-                            .addComponent(CQueue1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue2)
-                            .addComponent(CQueue2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue3)
-                            .addComponent(CQueue3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue4)
-                            .addComponent(CQueue4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PQueue5)
-                            .addComponent(CQueue5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(stopButton)
                             .addComponent(beginButton)))
                     .addComponent(jSeparator4)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(287, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(50, 50, 50)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        for(int i = 0; i < prods.size(); i++) {
+            prods.get(i).stop();
+        }
         
+        for(int i = 0; i < prods.size(); i++) {
+            conss.get(i).stop();
+        }
+        
+        prods.clear();
+        conss.clear();
+        
+        this.beginButton.setEnabled(true);
+        this.stopButton.setEnabled(false);
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void beginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginButtonActionPerformed
@@ -345,8 +350,8 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
         
         this.buffSize = Integer.parseInt(this.bufferSize.getSelectedItem().toString());
         
-        if(minValue > maxValue) {
-            JOptionPane.showMessageDialog(this, "Error. El valor mínimo no puede ser mayor que el máximo.");
+        if(minValue > maxValue || minValue == maxValue) {
+            JOptionPane.showMessageDialog(this, "Error. El valor mínimo no puede ser mayor ni igual que el máximo.");
             return;
         }
         
@@ -381,38 +386,32 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
         if(this.divCheck.isSelected())
             operands += "/";
         
+        this.prodTable.setRowCount(0);
+        
+        this.consTable.setRowCount(0);
         
         Buffer buffer = new Buffer();
         
         for(int i = 0; i < producers; i++) {
-            Productor prod = new Productor("P"+i, prodWaitTime, buffer, operands, minValue, maxValue);
+            Productor prod = new Productor("P"+i, prodWaitTime, buffer, operands, minValue, maxValue, this);
             this.prods.add(prod);
             prod.start();
         }
         
         for(int i = 0; i < consumers; i++) {
-            Consumidor consumer = new Consumidor("C"+i, consWaitTime, buffer);
+            Consumidor consumer = new Consumidor("C"+i, consWaitTime, buffer, this);
             this.conss.add(consumer);
             consumer.start();
         }
+        
+        this.beginButton.setEnabled(false);
+        this.stopButton.setEnabled(true);
     }//GEN-LAST:event_beginButtonActionPerformed
-    public void setLabel(javax.swing.JLabel label, String Message){
-            label.setText(Message);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CQueue1;
-    private javax.swing.JLabel CQueue2;
-    private javax.swing.JLabel CQueue3;
-    private javax.swing.JLabel CQueue4;
-    private javax.swing.JLabel CQueue5;
-    private javax.swing.JLabel PQueue1;
-    private javax.swing.JLabel PQueue2;
-    private javax.swing.JLabel PQueue3;
-    private javax.swing.JLabel PQueue4;
-    private javax.swing.JLabel PQueue5;
     private javax.swing.JButton beginButton;
     private javax.swing.JComboBox<String> bufferSize;
+    private javax.swing.JTable consumerTable;
     private javax.swing.JCheckBox divCheck;
     private javax.swing.JTextField esperaConsumidores;
     private javax.swing.JTextField esperaProductores;
@@ -430,6 +429,8 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -439,6 +440,7 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> numProductores;
     private javax.swing.JComboBox<String> prodMax;
     private javax.swing.JComboBox<String> prodMin;
+    private javax.swing.JTable producerTable;
     private javax.swing.JButton stopButton;
     private javax.swing.JCheckBox subCheck;
     private javax.swing.JCheckBox sumCheck;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import productorconsumidor.GUI.ProductorConsumidorGUI;
 
 public class Productor extends Thread{
     
@@ -11,16 +12,16 @@ public class Productor extends Thread{
     private int min, max;
     private long espera;
     private Buffer buffer;
-    public String message;
+    private ProductorConsumidorGUI gui;
     
-    public Productor(String id, long espera, Buffer buffer, String operands, int min, int max) {
+    public Productor(String id, long espera, Buffer buffer, String operands, int min, int max, ProductorConsumidorGUI gui) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
         this.operands = operands;
         this.min = min;
-        this.max = max;
-        this.message = "";
+        this.max = max+1;
+        this.gui = gui;
     }
     
     @Override
@@ -40,8 +41,9 @@ public class Productor extends Thread{
             
             this.buffer.produce(product);
             
-            this.message = "Producer " + this.id +  " produced: " + product.toString();
-            System.out.println(this.message);
+            String[] rowData = {this.id, product.toString()};
+            
+            this.gui.prodTable.addRow(rowData);
             
             try {
                 Thread.sleep(espera);

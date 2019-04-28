@@ -3,6 +3,7 @@ package productorconsumidor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import productorconsumidor.GUI.ProductorConsumidorGUI;
 
 
 public class Consumidor extends Thread {
@@ -10,13 +11,13 @@ public class Consumidor extends Thread {
     private String id;
     private long espera;
     private Buffer buffer;
-    public String message;
+    private ProductorConsumidorGUI gui;
     
-    public Consumidor(String id, long espera, Buffer buffer) {
+    public Consumidor(String id, long espera, Buffer buffer, ProductorConsumidorGUI gui) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
-        this.message = "";
+        this.gui = gui;
     }
     
     @Override
@@ -29,27 +30,46 @@ public class Consumidor extends Thread {
             
             product = this.buffer.consume();
             
+            
             if(product.size() != 0) {
-                this.message = "Consumer " + this.id +  " consumed " + product.toString();
-                System.out.println(this.message);
+                int result;
+                String[] rowData = new String[3];
+                
                 switch((char)product.get(0)) {
                     case '+':
-                        //TODO Access GUI to display result
+                        result = (int)product.get(1) + (int)product.get(2);
+                        rowData[0] = this.id; 
+                        rowData[1] = product.toString(); 
+                        rowData[2] = Integer.toString(result);
+                        this.gui.consTable.addRow(rowData);
                         break;
                     case '-':
-                        //TODO Access GUI to display result
+                        result = (int)product.get(1) - (int)product.get(2);
+                        rowData[0] = this.id; 
+                        rowData[1] = product.toString(); 
+                        rowData[2] = Integer.toString(result);
+                        this.gui.consTable.addRow(rowData);
                         break;
                     case '*':
-                        //TODO Access GUI to display result
+                        result = (int)product.get(1) * (int)product.get(2);
+                        rowData[0] = this.id; 
+                        rowData[1] = product.toString(); 
+                        rowData[2] = Integer.toString(result);
+                        this.gui.consTable.addRow(rowData);
                         break;
                     case '/':
-                        //TODO Access GUI to display result
+                        rowData[0] = this.id; 
+                        rowData[1] = product.toString();
+                        if((int)product.get(2) != 0)
+                            rowData[2] = Double.toString( new Double((int)product.get(1)) / new Double((int)product.get(2)) );
+                        else
+                            rowData[2] = "Div. by 0";
+                        this.gui.consTable.addRow(rowData);
                         break;
                     default:
                         break;
                 }
             }
-            
             
             try {
                 Thread.sleep(espera);
