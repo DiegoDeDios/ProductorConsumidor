@@ -26,7 +26,6 @@ public class Productor extends Thread{
     
     @Override
     public void run() {
-        System.out.println("Running Producer...");
         
         Random r = new Random(System.currentTimeMillis());
         
@@ -38,13 +37,13 @@ public class Productor extends Thread{
             
             product.add(this.min + new Random().nextInt(Math.abs(this.min - this.max)));
             product.add(this.min + new Random().nextInt(Math.abs(this.min - this.max)));
-            
-            this.buffer.produce(product);
-            
-            String[] rowData = {this.id, product.toString()};
-            
-            this.gui.prodTable.addRow(rowData);
-            
+
+            boolean added = this.buffer.produce(product);
+            if(added) {
+                String[] rowData = {this.id, product.toString()};
+                this.gui.prodTable.addRow(rowData);
+            }
+
             try {
                 Thread.sleep(espera);
             } catch (InterruptedException ex) {

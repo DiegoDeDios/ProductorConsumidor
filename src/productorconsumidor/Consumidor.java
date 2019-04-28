@@ -22,7 +22,6 @@ public class Consumidor extends Thread {
     
     @Override
     public void run() {
-        System.out.println("Running Consumer...");
         
         while(true) {
             

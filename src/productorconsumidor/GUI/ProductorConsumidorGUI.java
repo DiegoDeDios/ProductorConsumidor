@@ -13,7 +13,7 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     
     ArrayList<Productor> prods;
     ArrayList<Consumidor> conss;
-    int buffSize;
+    public int buffSize;
 
     public ProductorConsumidorGUI() {
         initComponents();
@@ -331,7 +331,7 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
             prods.get(i).stop();
         }
         
-        for(int i = 0; i < prods.size(); i++) {
+        for(int i = 0; i < conss.size(); i++) {
             conss.get(i).stop();
         }
         
@@ -390,7 +390,7 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
         
         this.consTable.setRowCount(0);
         
-        Buffer buffer = new Buffer();
+        Buffer buffer = new Buffer(this.buffSize);
         
         for(int i = 0; i < producers; i++) {
             Productor prod = new Productor("P"+i, prodWaitTime, buffer, operands, minValue, maxValue, this);

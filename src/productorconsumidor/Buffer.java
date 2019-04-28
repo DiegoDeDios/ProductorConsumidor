@@ -6,26 +6,27 @@ import java.util.ArrayList;
 import java.util.LinkedList; 
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import productorconsumidor.GUI.ProductorConsumidorGUI;
 
 public class Buffer {
     
-    Queue<ArrayList> buffer;
+    public Queue<ArrayList> buffer;
+    private int buffLimit;
     
-    public Buffer(){
+    public Buffer(int limit){
         this.buffer = new LinkedList<>();
+        this.buffLimit = limit;
     }
     
-    synchronized void produce(ArrayList product){
-         if(this.buffer.peek()!= null) {
-            try {
-                wait(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        this.buffer.add(product);
+    synchronized boolean produce(ArrayList product){
         
-        notify();
+        if(this.buffer.size() < this.buffLimit) {
+            this.buffer.add(product);
+            return true;
+        }
+            
+        
+        return false;
     }
     
     synchronized ArrayList consume(){
