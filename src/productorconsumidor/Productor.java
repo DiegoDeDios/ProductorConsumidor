@@ -7,15 +7,18 @@ import java.util.logging.Logger;
 
 public class Productor extends Thread{
     
-    private String id;
+    private String id, operands;
+    private int min, max;
     private long espera;
     private Buffer buffer;
-    private String operands;
     
-    public Productor(String id, long espera, Buffer buffer, String operands) {
+    public Productor(String id, long espera, Buffer buffer, String operands, int min, int max) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
+        this.operands = operands;
+        this.min = min;
+        this.max = max;
     }
     
     @Override
@@ -28,13 +31,14 @@ public class Productor extends Thread{
             
             ArrayList product = new ArrayList<>();
             
-            product.add(operands.charAt(r.nextInt(operands.length())));
-            product.add(r.nextInt(10));
-            product.add(r.nextInt(10));
+            product.add(this.operands.charAt(r.nextInt(this.operands.length())));
+            
+            product.add(this.min + new Random().nextInt(Math.abs(this.min - this.max)));
+            product.add(this.min + new Random().nextInt(Math.abs(this.min - this.max)));
             
             this.buffer.produce(product);
             
-            System.out.println("Producer produced: " + product.toString());
+            System.out.println("Producer " + this.id +  " produced: " + product.toString());
             
             try {
                 Thread.sleep(espera);

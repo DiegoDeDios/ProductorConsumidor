@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.LinkedList; 
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public class Buffer {
@@ -37,10 +38,17 @@ public class Buffer {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer.remove();
-        notify();
         
-        return product;
+        try {
+            product = this.buffer.remove();
+            notify();
+        } catch(NoSuchElementException e) {
+            
+        } finally {
+        
+            return product;
+        
+        }
     }
     
     

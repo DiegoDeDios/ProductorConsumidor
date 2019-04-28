@@ -10,7 +10,7 @@ public class Consumidor extends Thread {
     private long espera;
     private Buffer buffer;
     
-    public Consumidor(long espera, Buffer buffer) {
+    public Consumidor(String id, long espera, Buffer buffer) {
         this.id = id;
         this.espera = espera;
         this.buffer = buffer;
@@ -21,28 +21,39 @@ public class Consumidor extends Thread {
         System.out.println("Running Consumer...");
         
         while(true) {
+            
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Consumidor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
             ArrayList product;
             
             product = this.buffer.consume();
             
-            System.out.println("Consumer consumed " + product.toString());
+            if(product.size() != 0) {
+                System.out.println("Consumer " + this.id +  " consumed " + product.toString());
             
-            switch((char)product.get(0)) {
-                case '+':
-                    //TODO Access GUI to display result
-                    break;
-                case '-':
-                    //TODO Access GUI to display result
-                    break;
-                case '*':
-                    //TODO Access GUI to display result
-                    break;
-                case '/':
-                    //TODO Access GUI to display result
-                    break;
-                default:
-                    break;
+                switch((char)product.get(0)) {
+                    case '+':
+                        //TODO Access GUI to display result
+                        break;
+                    case '-':
+                        //TODO Access GUI to display result
+                        break;
+                    case '*':
+                        //TODO Access GUI to display result
+                        break;
+                    case '/':
+                        //TODO Access GUI to display result
+                        break;
+                    default:
+                        break;
+                }
             }
+            
             
             try {
                 Thread.sleep(espera);

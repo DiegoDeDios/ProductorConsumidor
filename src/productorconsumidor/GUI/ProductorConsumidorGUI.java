@@ -1,11 +1,20 @@
 package productorconsumidor.GUI;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import productorconsumidor.Buffer;
+import productorconsumidor.Consumidor;
+import productorconsumidor.Productor;
 
 public class ProductorConsumidorGUI extends javax.swing.JFrame {
+    
+    ArrayList prods, conss;
+    int buffSize;
 
     public ProductorConsumidorGUI() {
         initComponents();
+        this.prods = new ArrayList<Productor>();
+        this.conss = new ArrayList<Consumidor>();
     }
 
     @SuppressWarnings("unchecked")
@@ -226,9 +235,10 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     private void beginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginButtonActionPerformed
         int producers = Integer.parseInt(this.numProductores.getSelectedItem().toString()),
                 consumers = Integer.parseInt(this.numConsumidores.getSelectedItem().toString()),
-                buffSize = Integer.parseInt(this.bufferSize.getSelectedItem().toString()),
                 minValue = Integer.parseInt(this.prodMin.getSelectedItem().toString()),
                 maxValue = Integer.parseInt(this.prodMax.getSelectedItem().toString());
+        
+        this.buffSize = Integer.parseInt(this.bufferSize.getSelectedItem().toString());
         
         if(minValue > maxValue) {
             JOptionPane.showMessageDialog(this, "Error. El valor mínimo no puede ser mayor que el máximo.");
@@ -265,6 +275,21 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
             operands += "*";
         if(this.divCheck.isSelected())
             operands += "/";
+        
+        
+        Buffer buffer = new Buffer();
+        
+        for(int i = 0; i < producers; i++) {
+            Productor prod = new Productor("P"+i, prodWaitTime, buffer, operands, minValue, maxValue);
+            this.prods.add(prod);
+            prod.start();
+        }
+        
+        for(int i = 0; i < consumers; i++) {
+            Consumidor consumer = new Consumidor("C"+i, consWaitTime, buffer);
+            this.conss.add(consumer);
+            consumer.start();
+        }
     }//GEN-LAST:event_beginButtonActionPerformed
 
 
