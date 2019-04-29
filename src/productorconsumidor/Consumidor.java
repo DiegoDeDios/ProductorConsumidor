@@ -32,6 +32,7 @@ public class Consumidor extends Thread {
             if(product.size() != 0) {
                 int result;
                 String[] rowData = new String[3];
+                boolean updated = false;
                 
                 switch((char)product.get(0)) {
                     case '+':
@@ -39,7 +40,9 @@ public class Consumidor extends Thread {
                         rowData[0] = this.id; 
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
-                        this.gui.consTable.addRow(rowData);
+                        while(!updated) {
+                            updated = this.gui.addConsRow(rowData);
+                        }
                         this.gui.llenarBarrita();
                         break;
                     case '-':
@@ -47,7 +50,9 @@ public class Consumidor extends Thread {
                         rowData[0] = this.id; 
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
-                        this.gui.consTable.addRow(rowData);
+                        while(!updated) {
+                            updated = this.gui.addConsRow(rowData);
+                        }
                         this.gui.llenarBarrita();
                         break;
                     case '*':
@@ -55,7 +60,9 @@ public class Consumidor extends Thread {
                         rowData[0] = this.id; 
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
-                        this.gui.consTable.addRow(rowData);
+                        while(!updated) {
+                            updated = this.gui.addConsRow(rowData);
+                        }
                         this.gui.llenarBarrita();
                         break;
                     case '/':
@@ -65,7 +72,9 @@ public class Consumidor extends Thread {
                             rowData[2] = Double.toString( new Double((int)product.get(1)) / new Double((int)product.get(2)) );
                         else
                             rowData[2] = "Div. by 0";
-                        this.gui.consTable.addRow(rowData);
+                        while(!updated) {
+                            updated = this.gui.addConsRow(rowData);
+                        }
                         this.gui.llenarBarrita();
                         break;
                     default:
