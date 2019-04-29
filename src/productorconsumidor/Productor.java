@@ -30,7 +30,6 @@ public class Productor extends Thread{
         Random r = new Random(System.currentTimeMillis());
         
         while(true) {
-           // this.gui.llenarBarrita();
             ArrayList product = new ArrayList<>();
             
             product.add(this.operands.charAt(r.nextInt(this.operands.length())));
