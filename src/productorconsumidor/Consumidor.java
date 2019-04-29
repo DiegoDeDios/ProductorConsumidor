@@ -84,6 +84,7 @@ public class Consumidor extends Thread {
             
             try {
                 Thread.sleep(espera);
+                this.gui.scrollConsumer();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidor.class.getName()).log(Level.SEVERE, null, ex);
             }

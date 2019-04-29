@@ -394,7 +394,6 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     public boolean addProdRow(Object[] addData) {
         try {
             this.prodTable.addRow(addData);
-            this.producerTable.scrollRectToVisible(this.producerTable.getCellRect(this.prodTable.getRowCount()-1, 0, true));
             return true;
         } catch(Exception e) {
             return false;
@@ -404,10 +403,26 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     public boolean addConsRow(Object[] addData) {
         try {
             this.consTable.addRow(addData);
-            this.consumerTable.scrollRectToVisible(this.consumerTable.getCellRect(this.consTable.getRowCount()-1, 0, true));
             return true;
         } catch(Exception e) {
             return false;
+        }
+    }
+    
+    public void scrollProduction() {
+        try {
+            this.producerTable.scrollRectToVisible(this.producerTable.getCellRect(this.prodTable.getRowCount(), 0, true));
+        } catch(Exception e) {
+            
+        }
+        
+    }
+    
+    public void scrollConsumer() {
+        try {
+            this.consumerTable.scrollRectToVisible(this.consumerTable.getCellRect(this.consTable.getRowCount(), 0, true));
+        } catch(Exception e) {
+            
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
