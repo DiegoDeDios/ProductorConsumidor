@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.LinkedList; 
 import java.util.NoSuchElementException;
 import java.util.Queue;
-import productorconsumidor.GUI.ProductorConsumidorGUI;
 
 public class Buffer {
     
@@ -24,7 +23,6 @@ public class Buffer {
             this.buffer.add(product);
             return true;
         }
-            
         
         return false;
     }

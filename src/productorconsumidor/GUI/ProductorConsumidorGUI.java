@@ -386,19 +386,8 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_beginButtonActionPerformed
 
     public void llenarBarrita(){
-        int i = 0; 
-        try { 
-            while (i <= 100) { 
-                // fill the menu bar 
-                this.BarProgress.setValue(i + 10); 
-  
-                // delay the thread 
-                Thread.sleep(1000); 
-                i += 20; 
-            } 
-        } 
-        catch (Exception e) { 
-        } 
+        double porcentaje = (new Double(this.consTable.getRowCount()) / new Double(this.prodTable.getRowCount())) * 100;
+        this.BarProgress.setValue((int) porcentaje);
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
