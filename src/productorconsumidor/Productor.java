@@ -42,6 +42,7 @@ public class Productor extends Thread{
             if(added) {
                 String[] rowData = {this.id, product.toString()};
                 this.gui.prodTable.addRow(rowData);
+                this.gui.llenarBarrita();
             }
 
             try {
