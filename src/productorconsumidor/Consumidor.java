@@ -40,6 +40,7 @@ public class Consumidor extends Thread {
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
                         this.gui.consTable.addRow(rowData);
+                        this.gui.llenarBarrita();
                         break;
                     case '-':
                         result = (int)product.get(1) - (int)product.get(2);
@@ -47,6 +48,7 @@ public class Consumidor extends Thread {
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
                         this.gui.consTable.addRow(rowData);
+                        this.gui.llenarBarrita();
                         break;
                     case '*':
                         result = (int)product.get(1) * (int)product.get(2);
@@ -54,6 +56,7 @@ public class Consumidor extends Thread {
                         rowData[1] = product.toString(); 
                         rowData[2] = Integer.toString(result);
                         this.gui.consTable.addRow(rowData);
+                        this.gui.llenarBarrita();
                         break;
                     case '/':
                         rowData[0] = this.id; 
@@ -63,6 +66,7 @@ public class Consumidor extends Thread {
                         else
                             rowData[2] = "Div. by 0";
                         this.gui.consTable.addRow(rowData);
+                        this.gui.llenarBarrita();
                         break;
                     default:
                         break;
