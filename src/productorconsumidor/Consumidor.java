@@ -28,7 +28,6 @@ public class Consumidor extends Thread {
             ArrayList product;
             
             product = this.buffer.consume();
-            this.gui.llenarBarrita();
             
             if(product.size() != 0) {
                 int result;
