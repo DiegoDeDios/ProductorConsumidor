@@ -28,10 +28,10 @@ public class Consumidor extends Thread {
             ArrayList product;
             
             product = this.buffer.consume();
+            String[] rowData = new String[3];
             
             if(product.size() != 0) {
                 int result;
-                String[] rowData = new String[3];
                 boolean updated = false;
                 
                 switch((char)product.get(0)) {
@@ -44,6 +44,7 @@ public class Consumidor extends Thread {
                             updated = this.gui.addConsRow(rowData);
                         }
                         this.gui.llenarBarrita();
+                        this.gui.removeProdRow(rowData[1]);
                         break;
                     case '-':
                         result = (int)product.get(1) - (int)product.get(2);
@@ -54,6 +55,7 @@ public class Consumidor extends Thread {
                             updated = this.gui.addConsRow(rowData);
                         }
                         this.gui.llenarBarrita();
+                        this.gui.removeProdRow(rowData[1]);
                         break;
                     case '*':
                         result = (int)product.get(1) * (int)product.get(2);
@@ -64,6 +66,7 @@ public class Consumidor extends Thread {
                             updated = this.gui.addConsRow(rowData);
                         }
                         this.gui.llenarBarrita();
+                        this.gui.removeProdRow(rowData[1]);
                         break;
                     case '/':
                         rowData[0] = this.id; 
@@ -76,6 +79,7 @@ public class Consumidor extends Thread {
                             updated = this.gui.addConsRow(rowData);
                         }
                         this.gui.llenarBarrita();
+                        this.gui.removeProdRow(rowData[1]);
                         break;
                     default:
                         break;

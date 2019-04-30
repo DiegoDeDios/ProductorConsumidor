@@ -406,11 +406,11 @@ public class ProductorConsumidorGUI extends javax.swing.JFrame {
         }
     }
     
-    public void removeProdRow(int row){
-   
-            this.prodTable.removeRow(row);
-       
-        
+    public void removeProdRow(Object data){
+        for(int i = 0; i < this.prodTable.getRowCount(); i++) {
+            if(this.prodTable.getValueAt(i, 1).equals(data))
+                this.prodTable.removeRow(i);
+        }
     }
     
     public boolean addConsRow(Object[] addData) {
