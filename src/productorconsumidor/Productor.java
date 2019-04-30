@@ -28,11 +28,9 @@ public class Productor extends Thread{
     public void run() {
         
         Random r = new Random(System.currentTimeMillis());
-        
+        int row = 0;
         while(true) {
-            
             ArrayList product = new ArrayList<>();
-            
             product.add(this.operands.charAt(r.nextInt(this.operands.length())));
             
             product.add(this.min + new Random().nextInt(Math.abs(this.min - this.max)));
@@ -46,10 +44,13 @@ public class Productor extends Thread{
                     updated = this.gui.addProdRow(rowData);
                 }
                 this.gui.llenarBarrita();
+                
             }
+            
 
             try {
                 Thread.sleep(espera);
+                this.gui.removeProdRow(row);
                 this.gui.scrollProduction();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productor.class.getName()).log(Level.SEVERE, null, ex);
