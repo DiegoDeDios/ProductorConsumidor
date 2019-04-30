@@ -40,7 +40,7 @@ public class Productor extends Thread{
 
             boolean added = this.buffer.produce(product);
             if(added) {
-                String[] rowData = {this.id, product.toString()};
+                String[] rowData = {this.id, "(" + product.get(0) + " " + product.get(1) + " " + product.get(2) + ")"};
                 boolean updated = false;
                 while(!updated) {
                     updated = this.gui.addProdRow(rowData);

@@ -38,7 +38,7 @@ public class Consumidor extends Thread {
                     case '+':
                         result = (int)product.get(1) + (int)product.get(2);
                         rowData[0] = this.id; 
-                        rowData[1] = product.toString(); 
+                        rowData[1] = "(" + product.get(0) + " " + product.get(1) + " " + product.get(2) + ")";
                         rowData[2] = Integer.toString(result);
                         while(!updated) {
                             updated = this.gui.addConsRow(rowData);
@@ -48,7 +48,7 @@ public class Consumidor extends Thread {
                     case '-':
                         result = (int)product.get(1) - (int)product.get(2);
                         rowData[0] = this.id; 
-                        rowData[1] = product.toString(); 
+                        rowData[1] = "(" + product.get(0) + " " + product.get(1) + " " + product.get(2) + ")";
                         rowData[2] = Integer.toString(result);
                         while(!updated) {
                             updated = this.gui.addConsRow(rowData);
@@ -58,7 +58,7 @@ public class Consumidor extends Thread {
                     case '*':
                         result = (int)product.get(1) * (int)product.get(2);
                         rowData[0] = this.id; 
-                        rowData[1] = product.toString(); 
+                        rowData[1] = "(" + product.get(0) + " " + product.get(1) + " " + product.get(2) + ")";
                         rowData[2] = Integer.toString(result);
                         while(!updated) {
                             updated = this.gui.addConsRow(rowData);
@@ -67,7 +67,7 @@ public class Consumidor extends Thread {
                         break;
                     case '/':
                         rowData[0] = this.id; 
-                        rowData[1] = product.toString();
+                        rowData[1] = "(" + product.get(0) + " " + product.get(1) + " " + product.get(2) + ")";
                         if((int)product.get(2) != 0)
                             rowData[2] = Double.toString( new Double((int)product.get(1)) / new Double((int)product.get(2)) );
                         else
