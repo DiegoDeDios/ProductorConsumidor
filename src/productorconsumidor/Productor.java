@@ -49,6 +49,7 @@ public class Productor extends Thread{
 
             try {
                 Thread.sleep(espera);
+                this.gui.scrollProduction();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productor.class.getName()).log(Level.SEVERE, null, ex);
             }
